@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Roles } from 'src/auth/roles-auth.decorator';
@@ -24,6 +32,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Creating a new user' })
   @ApiResponse({ status: 201, type: [User] })
+  // @UsePipes(ValidationPipe)
   @Post()
   async createUser(@Body() userDTO: CreateUserDto) {
     return await this.userService.createUser(userDTO);
@@ -42,6 +51,7 @@ export class UsersController {
   @ApiResponse({ status: 200 })
   @Roles('admin')
   @UseGuards(RolesGuard)
+  // @UsePipes(ValidationPipe)
   @Post('/ban')
   async banUser(@Body() dto: BanUserDto) {
     return await this.userService.banUser(dto);
