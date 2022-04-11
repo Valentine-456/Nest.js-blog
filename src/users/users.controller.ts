@@ -23,8 +23,8 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Retrieving all users in the system' })
   @ApiResponse({ status: 200, type: User })
-  @Roles('admin')
-  @UseGuards(RolesGuard)
+  // @Roles('admin')
+  // @UseGuards(RolesGuard)
   @Get()
   async getUsers() {
     return await this.userService.getUsers();
@@ -41,7 +41,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Getting role' })
   @ApiResponse({ status: 200 })
   @Roles('admin')
-  @UseGuards(RolesGuard)
+  // @UseGuards(RolesGuard)
   @Post('/role')
   async getRole(@Body() dto: AddRoleDto) {
     return await this.userService.getRole(dto);
